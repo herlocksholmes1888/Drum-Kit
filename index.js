@@ -1,57 +1,53 @@
 document.querySelectorAll(".drum").forEach((item) => {
-    item.addEventListener("click", playSound);
+    item.addEventListener("click", function(){
+        var clicked = this.innerHTML;
+        playSound(clicked);
+        pressedButton(clicked);
+    });
 });
 
-document.addEventListener("keydown", playSound);
+document.addEventListener("keydown", function(event){
+    playSound(event.key);
+    pressedButton(event.key);
+});
 
-function playSound(event) {
-    var choice;
-
-    if (event.type === "keydown") {
-        choice = event.key.toLowerCase();
-    } else if (event.type === "click") {
-        choice = this.innerHTML;
-    } else {
-        return;
-    }
-
+function playSound(choice) {
     switch(choice) {
         case "w":
-            var wAudio = new Audio("sounds/tom-1.mp3");
-            wAudio.play();
-        break;
+            new Audio("sounds/tom-1.mp3").play();
+            break;
 
         case "a":
-            var aAudio = new Audio("sounds/tom-2.mp3");
-            aAudio.play();
-        break;
+            new Audio("sounds/tom-2.mp3").play();
+            break;
 
         case "s":
-            var sAudio = new Audio("sounds/tom-3.mp3");
-            sAudio.play();
-        break;
+            new Audio("sounds/tom-3.mp3").play();
+            break;
 
         case "d":
-            var dAudio = new Audio("sounds/tom-4.mp3");
-            dAudio.play();
-        break;
+            new Audio("sounds/tom-4.mp3").play();
+            break;
 
         case "j":
-            var jAudio = new Audio("sounds/snare.mp3");
-            jAudio.play();
-        break;
+            new Audio("sounds/snare.mp3").play();
+            break;
 
         case "k":
-            var kAudio = new Audio("sounds/crash.mp3");
-            kAudio.play();
-        break;
+            new Audio("sounds/crash.mp3").play();
+            break;
 
         case "l":
-            var lAudio = new Audio("sounds/kick-bass.mp3");
-            lAudio.play();
-        break;
+            new Audio("sounds/kick-bass.mp3").play();
+            break;
 
         default:
             break;
     }
+}
+
+function pressedButton(currentButton) {
+    var activeButton = document.querySelector("." + currentButton);
+    activeButton.classList.add("pressed");
+    setTimeout(function(){ activeButton.classList.remove("pressed") }, 100);
 }
